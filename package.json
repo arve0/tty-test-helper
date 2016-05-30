@@ -1,0 +1,34 @@
+{
+  "name": "tty-test-helper",
+  "version": "0.0.1",
+  "description": "Test interactive console applications",
+  "main": "index.js",
+  "scripts": {
+    "build": "babel --presets es2015 index.babel.js -o index.js",
+		"preversion": "npm run build && git add index.js",
+		"pretest": "npm run build",
+    "test": "ava test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/arve0/tty-test-helper.git"
+  },
+  "keywords": [
+    "test",
+    "tty",
+    "console",
+    "terminal",
+    "interactive"
+  ],
+  "author": "Arve Seljebu",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/arve0/tty-test-helper/issues"
+  },
+  "homepage": "https://github.com/arve0/tty-test-helper#readme",
+  "devDependencies": {
+    "ava": "^0.15.1",
+    "babel-cli": "^6.9.0",
+    "babel-preset-es2015": "^6.9.0"
+  }
+}
