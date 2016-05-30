@@ -1,9 +1,5 @@
 'use strict';
 
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-exports.default = ttyTestHelper;
 var childProcess = require('child_process');
 
 var defaults = {
@@ -27,7 +23,7 @@ var defaults = {
  *
  * @returns {object}
  */
-function ttyTestHelper(cmd) {
+module.exports = function ttyTestHelper(cmd) {
 	var opts = arguments.length <= 1 || arguments[1] === undefined ? defaults : arguments[1];
 
 	var child = void 0;
@@ -145,7 +141,7 @@ function ttyTestHelper(cmd) {
 		next: next,
 		wait: wait
 	};
-}
+};
 
 /**
  * Get last item of array.
