@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "babel --presets es2015 index.babel.js -o index.js",
+		"postpublish": "git push && git push --tags",
 		"preversion": "npm run build && git add index.js",
 		"pretest": "npm run build",
     "test": "ava test.js"
