@@ -21,7 +21,7 @@ const defaults = {
  *
  * @returns {object}
  */
-export default function ttyTestHelper (cmd, opts = defaults) {
+module.exports = function ttyTestHelper (cmd, opts = defaults) {
 	let child;
 	if (opts.fork) {
 		// silent: true -> do not pipe child.stdout to process.stdout
