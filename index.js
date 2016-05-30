@@ -23,10 +23,9 @@ var defaults = {
  *
  * @returns {object}
  */
-module.exports = function ttyTestHelper(cmd) {
-	var opts = arguments.length <= 1 || arguments[1] === undefined ? defaults : arguments[1];
-
+module.exports = function ttyTestHelper(cmd, opts) {
 	var child = void 0;
+	opts = Object.assign({}, defaults, opts);
 	if (opts.fork) {
 		// silent: true -> do not pipe child.stdout to process.stdout
 		child = childProcess.fork(cmd, opts.args, { silent: true });
@@ -74,7 +73,7 @@ module.exports = function ttyTestHelper(cmd) {
 		var timeout = arguments.length <= 3 || arguments[3] === undefined ? 1000 : arguments[3];
 
 		return new Promise(function (resolve, reject) {
-			var timeout = void 0,
+			var _timeout = void 0,
 			    interval = void 0,
 			    l = void 0;
 			// check every 10 ms
@@ -86,13 +85,13 @@ module.exports = function ttyTestHelper(cmd) {
 					return;
 				}
 				if (last(arr) && last(arr).indexOf(what) !== -1) {
-					clearTimeout(timeout);
+					clearTimeout(_timeout);
 					clearInterval(interval);
 					resolve(last(arr));
 				}
 			}, 10);
 			// or time out
-			timeout = setTimeout(function () {
+			_timeout = setTimeout(function () {
 				clearInterval(interval);
 				reject('timed out after ' + timeout + ' milliseconds, did not find "' + what + '" in "' + last(arr) + '"');
 			}, timeout);

@@ -21,8 +21,9 @@ const defaults = {
  *
  * @returns {object}
  */
-module.exports = function ttyTestHelper (cmd, opts = defaults) {
+module.exports = function ttyTestHelper (cmd, opts) {
 	let child;
+	opts = Object.assign({}, defaults, opts);
 	if (opts.fork) {
 		// silent: true -> do not pipe child.stdout to process.stdout
 		child = childProcess.fork(cmd, opts.args, { silent: true });
@@ -65,7 +66,7 @@ module.exports = function ttyTestHelper (cmd, opts = defaults) {
 	 */
 	function waitFor (what = '', arr = stdout, onlyNew = false, timeout = 1000) {
 		return new Promise((resolve, reject) => {
-			let timeout, interval, l;
+			let _timeout, interval, l;
 			// check every 10 ms
 			if (onlyNew) {
 				l = what.length;
@@ -75,13 +76,13 @@ module.exports = function ttyTestHelper (cmd, opts = defaults) {
 					return;
 				}
 				if (last(arr) && last(arr).indexOf(what) !== -1) {
-					clearTimeout(timeout);
+					clearTimeout(_timeout);
 					clearInterval(interval);
 					resolve(last(arr));
 				}
 			}, 10);
 			// or time out
-			timeout = setTimeout(() => {
+			_timeout = setTimeout(() => {
 				clearInterval(interval);
 				reject(`timed out after ${timeout} milliseconds, did not find "${what}" in "${last(arr)}"`);
 			}, timeout);
