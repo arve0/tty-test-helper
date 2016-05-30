@@ -138,6 +138,7 @@ module.exports = function ttyTestHelper(cmd, opts) {
 		stdin: child.stdin,
 		waitFor: waitFor,
 		next: next,
+		last: last,
 		wait: wait
 	};
 };
